@@ -1,0 +1,27 @@
+version: '3.7'
+services:
+  jenkinsweb:
+    deploy:
+      resources:
+        limits:
+          memory: 1536M
+        reservations:
+          memory: 1024M
+    build: 
+      context: .
+    image: jenkins/desafiodevops:p1
+    privileged: yes
+    hostname: jenkins.pulse
+    container_name: jenkins-cicd
+    restart: always
+    user: root
+    volumes:
+      - /home/dombarbosa/workspace/docker_volumes_backup/desafio-devops/jenkins_volumes/jenkins-maven_home:/var/jenkins_home
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - /etc/hosts:/etc/hosts:ro
+      - 
+
+    environment:
+      JENKINS_HOST_HOME: "/data/jenkins"
+    ports:
+      - "9080:8080"

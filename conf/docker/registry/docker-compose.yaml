@@ -1,0 +1,18 @@
+version: '3.7'
+services:
+  registry-local:
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
+    image: registry:2
+    hostname: registry.pulse
+    container_name: registry-cicd
+    restart: always
+    volumes:
+      - /home/dombarbosa/workspace/docker_volumes_backup/desafio-devops/registry_volumes/registryvol:/var/lib/registry
+      - /etc/hosts:/etc/hosts:ro
+    ports:
+      - "5001:5000"

@@ -1,0 +1,11 @@
+# imgpull: 
+# - registry.pulse:5001/desafio-devops-prod:0.3.0
+# - registry.pulse:5001/helloworld:${pomVersion}-prod
+# - 
+# registrylocal${registrylocal}/${pom.artifactId}:
+# pomVersion: ${pom.version}
+# -${envproject}
+vs: '{{versao}}'
+regL: '{{registryLOCAL}}'
+envproj: '{{envP}}'
+aID: '{{artID}}'

@@ -1,0 +1,15 @@
+---
+- name: Deployando Hello World
+  hosts: pulse
+  remote_user: dombarbosa
+  become: true
+  connection: ssh
+  roles:    
+    - hello
+
+# - name: Deploy aplicação Hello
+#   become: yes
+#   remote_user: dombarbosa
+#   hosts: pulse
+#   roles:
+#     - hello

@@ -1,0 +1,24 @@
+version: "3.7"
+services:
+  web:
+    deploy:
+      resources:
+        limits:
+          memory: 6144M
+        reservations:
+          memory: 2048M
+    image: 'gitlab/gitlab-ce:latest'
+    restart: always
+    hostname: gitlab.pulse
+    container_name: gitlab-cicd
+    ports:
+      - '80:80'
+      - '9081:80'
+      - '1443:443'
+      - '2222:22'
+    volumes:
+      - /home/dombarbosa/workspace/docker_volumes_backup/desafio-devops/gitlab_volumes/gitlab_config:/etc/gitlab/
+      - /home/dombarbosa/workspace/docker_volumes_backup/desafio-devops/gitlab_volumes/gitlab_logs:/var/log/gitlab/
+      - /home/dombarbosa/workspace/docker_volumes_backup/desafio-devops/gitlab_volumes/gitlab_data:/var/opt/gitlab/
+      - /etc/hosts:/etc/hosts:ro
+
