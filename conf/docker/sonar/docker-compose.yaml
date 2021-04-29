@@ -8,16 +8,21 @@ services:
         reservations:
           memory: 256M
     image: postgres
-    hostname: sonardb.pulse
+    # hostname: sonardb.pulse
     container_name: sonarqubedb-cicd
     restart: always
     environment:
+      TZ: America/Fortaleza
       POSTGRES_USER: sonar
       POSTGRES_PASSWORD: sonar
     volumes:
+      - /etc/localtime:/etc/localtime:ro
       - /home/dombarbosa/workspace/docker_volumes_backup/desafio-devops/sonar_volumes/postgresql:/var/lib/postgresql
-      # This needs explicit mapping due to https://github.com/docker-library/postgres/blob/4e48e3228a30763913ece952c611e5e9b95c8759/Dockerfile.template#L52
       - /home/dombarbosa/workspace/docker_volumes_backup/desafio-devops/sonar_volumes/postgresql_data:/var/lib/postgresql/data
+      # - /etc/hosts:/etc/hosts:ro
+    networks:
+      common-net:
+        ipv4_address: 10.230.10.8
 
   sonarweb:
     deploy:
@@ -29,18 +34,25 @@ services:
     image: sonarqube:latest
     depends_on:
       - sonardb
-    hostname: sonar.pulse
+    # hostname: sonar.pulse
     container_name: sonarqube-cicd
     restart: always
     ports:
       - "9082:9000"
     environment:
+      - TZ=America/Fortaleza
       - "SONAR_JDBC_USERNAME=sonarqube"
       - "SONAR_JDBC_PASSWORD=sonarqube"
-    volumes: 
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
       - /home/dombarbosa/workspace/docker_volumes_backup/desafio-devops/sonar_volumes/sonarqube_conf:/opt/sonarqube/conf
       - /home/dombarbosa/workspace/docker_volumes_backup/desafio-devops/sonar_volumes/sonarqube_data:/opt/sonarqube/data
       - /home/dombarbosa/workspace/docker_volumes_backup/desafio-devops/sonar_volumes/sonarqube_logs:/opt/sonarqube/logs
       - /home/dombarbosa/workspace/docker_volumes_backup/desafio-devops/sonar_volumes/sonarqube_extensions:/opt/sonarqube/extensions
-      - /etc/hosts:/etc/hosts:ro
-      
+      # - /etc/hosts:/etc/hosts:ro
+    networks:
+      common-net:
+        ipv4_address: 10.230.10.7
+networks:
+  common-net:
+    external: true

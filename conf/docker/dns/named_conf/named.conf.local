@@ -1,0 +1,5 @@
+one "pulse" {
+    type master;
+    file "/etc/bind/zones/pulse";
+};
+

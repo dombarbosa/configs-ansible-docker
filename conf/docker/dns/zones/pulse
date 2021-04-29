@@ -1,0 +1,22 @@
+$TTL    604800
+@       IN      SOA     pulse. root.pulse. (
+                  3     ; Serial
+             604800     ; Refresh
+              86400     ; Retry
+            2419200     ; Expire
+             604800 )   ; Negative Cache TTL
+;
+; name servers - NS records
+@ IN NS jekins.pulse.
+@ IN NS gitlab.pulse.
+@ IN NS sonar.pulse.
+@ IN NS haproxy.pulse.
+@ IN NS dns.pulse.
+
+; name servers - A records
+jenkins  IN A 10.230.10.4
+gitlab   IN A 10.230.10.5
+sonar    IN A 10.230.10.7
+registry IN A 10.230.10.6
+haproxy  IN A 10.230.10.2
+dns      IN A 10.230.10.3

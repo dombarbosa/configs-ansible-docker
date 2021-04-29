@@ -11,17 +11,29 @@ services:
       context: .
     image: jenkins/desafiodevops:p1
     privileged: yes
-    hostname: jenkins.pulse
+    # hostname: jenkins.pulse
     container_name: jenkins-cicd
     restart: always
     user: root
     volumes:
+      - /etc/localtime:/etc/localtime:ro
       - /home/dombarbosa/workspace/docker_volumes_backup/desafio-devops/jenkins_volumes/jenkins-maven_home:/var/jenkins_home
-      - "/var/run/docker.sock:/var/run/docker.sock"
-      - /etc/hosts:/etc/hosts:ro
-      - 
-
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /home/dombarbosa/workspace/docker_volumes_backup/desafio-devops/sshkey/:$HOME/.ssh/
+      # - /etc/hosts:/etc/hosts:ro
     environment:
-      JENKINS_HOST_HOME: "/data/jenkins"
+      TZ: "America/Fortaleza"
+      # JENKINS_HOST_HOME: "/data/jenkins"
     ports:
       - "9080:8080"
+      - "50000:50000"
+    networks:
+      jenkins-net:
+        ipv4_address: 10.230.11.4
+      common-net:
+        ipv4_address: 10.230.10.4
+networks:
+  jenkins-net:
+    external: true
+  common-net:
+    external: true

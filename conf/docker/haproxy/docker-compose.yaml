@@ -1,27 +1,29 @@
 version: '3.7'
 services:
-  registry-local:
+  balanceador:
     deploy:
       resources:
         limits:
-          memory: 512M
+          memory: 1000M
         reservations:
           memory: 256M
-    image: registry:2
-    # hostname: registry.pulse
-    container_name: registry-cicd
+    image: haproxytech/haproxy-alpine
+    # hostname: haproxy.pulse
+    container_name: haproxy-cicd
     restart: always
     environment:
       TZ: America/Fortaleza
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /home/dombarbosa/workspace/docker_volumes_backup/desafio-devops/registry_volumes/registryvol:/var/lib/registry
+      - /home/dombarbosa/workspace/docker_volumes_backup/desafio-devops/haproxy_cfg/:/usr/local/etc/haproxy/
       # - /etc/hosts:/etc/hosts:ro
     ports:
-      - "5001:5000"
+      - "5085:5000"
+      - "5081:81"
+      - "5080:80"
     networks:
       common-net:
-        ipv4_address: 10.230.10.6
+        ipv4_address: 10.230.10.2
 networks:
   common-net:
     external: true

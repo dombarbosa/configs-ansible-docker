@@ -1,0 +1,53 @@
+version: '3.5'
+
+services:
+
+  ns1-bind9:
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
+    build: 
+      context: .
+    restart: always
+    container_name: ns1-cicd
+    # hostname: ns1.pulse
+    image: dns-local-bind9
+    environment:
+      TZ: America/Fortaleza
+    ports:
+    - "9053:53/udp"
+    - "9053:53/tcp"
+    volumes:
+    - "/etc/localtime:/etc/localtime:ro"
+    - "/home/dombarbosa/workspace/docker_volumes_backup/desafio-devops/dns/primary/:/data"
+    networks:
+      common-net:
+        ipv4_address: 10.230.10.14
+
+  ns2-bind9:
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
+    restart: always
+    container_name: ns2-cicd
+    # hostname: ns2.pulse
+    image: dns-local-bind9
+    ports:
+    - "953:53/udp"
+    - "953:53/tcp"
+    volumes:
+    - "/etc/localtime:/etc/localtime:ro"
+    - "/home/dombarbosa/workspace/docker_volumes_backup/desafio-devops/dns/secondary/:/data"
+    networks:
+      common-net:
+        ipv4_address: 10.230.10.13
+
+networks:
+  common-net:
+    external: true
