@@ -7,15 +7,18 @@ services:
           memory: 1000M
         reservations:
           memory: 256M
-    image: haproxytech/haproxy-alpine
-    # hostname: haproxy.pulse
+    build: .
+    image: balanceadorlocal
+    # image: haproxy:1.6
+    hostname: haproxy-cicd
     container_name: haproxy-cicd
     restart: always
     environment:
       TZ: America/Fortaleza
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /home/dombarbosa/workspace/docker_volumes_backup/desafio-devops/haproxy_cfg/:/usr/local/etc/haproxy/
+      - /home/dombarbosa/workspace/docker_volumes_backup/desafio-devops/haproxy_cfg/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+      - /home/dombarbosa/workspace/docker_volumes_backup/desafio-devops/haproxy_cfg/resolv/resolv.conf:/etc/resolv.conf:ro
       # - /etc/hosts:/etc/hosts:ro
     ports:
       - "5085:5000"

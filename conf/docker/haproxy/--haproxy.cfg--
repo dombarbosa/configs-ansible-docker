@@ -1,0 +1,46 @@
+global
+    log         127.0.0.1 local0
+    log 127.0.0.1       local1 notice
+    maxconn     20000
+    daemon
+
+    pidfile     /var/run/haproxy.pid
+
+defaults
+    log                     global
+    mode                    http
+    timeout connect         3m
+    timeout client          4h
+    timeout server          4h
+
+listen Statistics
+    bind *:81
+    mode http
+    option httpclose
+    stats enable
+    stats auth admin:haproxy
+    stats show-legends
+    stats hide-version
+    stats show-desc Haproxy Load Balancer
+    stats uri /stats
+    stats refresh 5s
+    
+frontend  main
+     bind *:80
+
+    acl sonar_pulse    path_beg  -i  /sessions/new
+    use_backend backend_sonar_pulse if sonar_pulse sonar_pulse
+
+frontend  ssl
+     bind *:443
+
+backend static
+    balance     leastconn
+    server      static sample.com:80 check
+
+backend backend_sonar_pulse
+    mode http
+    option httplog
+    balance leastconn
+    http-request set-header X-Client-IP %[src]
+    server WS01 10.0.2.9:9082 check inter 5s rise 2 fall 5

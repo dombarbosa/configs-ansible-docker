@@ -49,6 +49,7 @@ services:
       - /home/dombarbosa/workspace/docker_volumes_backup/desafio-devops/sonar_volumes/sonarqube_data:/opt/sonarqube/data
       - /home/dombarbosa/workspace/docker_volumes_backup/desafio-devops/sonar_volumes/sonarqube_logs:/opt/sonarqube/logs
       - /home/dombarbosa/workspace/docker_volumes_backup/desafio-devops/sonar_volumes/sonarqube_extensions:/opt/sonarqube/extensions
+      - /home/dombarbosa/workspace/docker_volumes_backup/desafio-devops/sonar_volumes/resolv/resolv.conf:/etc/resolv.conf:ro
       # - /etc/hosts:/etc/hosts:ro
     networks:
       common-net:

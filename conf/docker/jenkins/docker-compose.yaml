@@ -19,6 +19,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /home/dombarbosa/workspace/docker_volumes_backup/desafio-devops/jenkins_volumes/jenkins-maven_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
+      - /home/dombarbosa/workspace/docker_volumes_backup/desafio-devops/jenkins_volumes/resolv/resolv.conf:/etc/resolv.conf:ro
       - /home/dombarbosa/workspace/docker_volumes_backup/desafio-devops/sshkey/:$HOME/.ssh/
       # - /etc/hosts:/etc/hosts:ro
     environment:
@@ -32,6 +33,10 @@ services:
         ipv4_address: 10.230.11.4
       common-net:
         ipv4_address: 10.230.10.4
+    dns: 
+      - "10.230.10.14"
+      - "10.230.10.13"
+    dns_search: pulse.site
 networks:
   jenkins-net:
     external: true

@@ -14,5 +14,12 @@ RUN usermod -aG docker jenkins
 RUN pip install docker-py
 COPY ./id_rsa.pub ~/.ssh/
 COPY ./id_rsa ~/.ssh/
+RUN cp /etc/resolv.conf /etc/resolv.conf.bak
+COPY resolv.conf /etc/resolv.conf
+# RUN chmod +x resolv.sh
+# RUN bash resolv.sh
+# RUN sed 's|127.0.0.11|10.230.10.14|g;' /etc/resolv.conf
+# RUN echo "nameserver 10.230.10.13" >> /etc/resolv.conf
+# RUN echo "nameserver 10.230.10.13" >> /etc/resolv.conf
 RUN echo "ask_pass = false" >> /etc/ansible/ansible.cfg
 RUN echo "host_key_checking = false" >> /etc/ansible/ansible.cfg

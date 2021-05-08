@@ -16,6 +16,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /home/dombarbosa/workspace/docker_volumes_backup/desafio-devops/registry_volumes/registryvol:/var/lib/registry
+      - /home/dombarbosa/workspace/docker_volumes_backup/desafio-devops/registry_volumes/resolv/resolv.conf:/etc/resolv.conf:ro
       # - /etc/hosts:/etc/hosts:ro
     ports:
       - "5001:5000"

@@ -14,7 +14,7 @@ services:
     environment:
       TZ: America/Fortaleza
     ports:
-      - '80:80'
+      # - '80:80'
       - '9081:80'
       - '1443:443'
       - '2222:22'
@@ -23,6 +23,7 @@ services:
       - /home/dombarbosa/workspace/docker_volumes_backup/desafio-devops/gitlab_volumes/gitlab_config:/etc/gitlab/
       - /home/dombarbosa/workspace/docker_volumes_backup/desafio-devops/gitlab_volumes/gitlab_logs:/var/log/gitlab/
       - /home/dombarbosa/workspace/docker_volumes_backup/desafio-devops/gitlab_volumes/gitlab_data:/var/opt/gitlab/
+      - /home/dombarbosa/workspace/docker_volumes_backup/desafio-devops/gitlab_volumes/resolv/resolv.conf:/etc/resolv.conf:ro
       # - /etc/hosts:/etc/hosts:ro
     networks:
       common-net:
