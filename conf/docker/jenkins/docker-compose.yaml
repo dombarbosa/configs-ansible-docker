@@ -18,7 +18,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /home/dombarbosa/workspace/docker_volumes_backup/desafio-devops/jenkins_volumes/jenkins-maven_home:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock
+      # - /var/run/docker.sock:/var/run/docker.sock
       - /home/dombarbosa/workspace/docker_volumes_backup/desafio-devops/jenkins_volumes/resolv/resolv.conf:/etc/resolv.conf:ro
       - /home/dombarbosa/workspace/docker_volumes_backup/desafio-devops/sshkey/:$HOME/.ssh/
       # - /etc/hosts:/etc/hosts:ro

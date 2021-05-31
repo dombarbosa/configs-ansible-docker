@@ -1,4 +1,6 @@
 ---
+# - name: Entrega continua 
+#   command: "docker ps"
 - name: Deploy_com_ansible
   docker_container:
     name: appspring
